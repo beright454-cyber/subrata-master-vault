@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUBRATA MONDAL | MASTER AI ECOSYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;800&family=Michroma&family=Space+Mono:wght@700&family=Orbitron:wght@900&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --luxury-gold: #D4AF37;
+            --off-gold: #C5A059;
+            --charcoal: #1A1A1A;
+            --deep-espresso: #1A120B;
+            --neon-blue: #00f2ff;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            background: #000; overflow-x: hidden; 
+            font-family: 'Michroma', sans-serif;
+            color: white;
+        }
+
+        /* MASTER BACKGROUND: PARTICLE MATRIX */
+        #particle-canvas {
+            position: fixed; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1A120B 0%, #000 100%);
+            z-index: 1;
+        }
+
+        /* HEADER SECTION */
+        header {
+            position: fixed; top: 0; width: 100%;
+            padding: 30px 50px; display: flex;
+            justify-content: space-between; align-items: center;
+            z-index: 100; backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logo { font-family: 'Cinzel'; letter-spacing: 8px; color: var(--luxury-gold); font-size: 1.2rem; }
+
+        /* MAIN HERO (PROJECT 18) */
+        .hero-section {
+            position: relative; z-index: 10;
+            height: 100vh; display: flex;
+            justify-content: center; align-items: center;
+            perspective: 2000px;
+        }
+
+        .master-card {
+            background: rgba(26, 18, 11, 0.9);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--luxury-gold);
+            padding: 50px; text-align: center;
+            transform-style: preserve-3d;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            transition: transform 0.1s ease-out;
+        }
+
+        .bold-title { font-family: 'Syncopate'; font-weight: 800; display: block; line-height: 1.1; }
+        .sand-blaster { color: #fff; font-size: 3rem; }
+        .ai-dev { color: var(--luxury-gold); font-size: 3.2rem; }
+
+        /* THE 18-NODE GRID (PROJECT 16 INTEGRATION) */
+        .vault-grid {
+            position: relative; z-index: 10;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px; padding: 100px 10%; background: rgba(0,0,0,0.8);
+        }
+
+        .node-cube {
+            width: 200px; height: 200px; margin: auto;
+            position: relative; transform-style: preserve-3d;
+            animation: rotateNode 15s infinite linear;
+            cursor: pointer;
+        }
+
+        @keyframes rotateNode {
+            0% { transform: rotateY(0deg) rotateX(15deg); }
+            100% { transform: rotateY(360deg) rotateX(15deg); }
+        }
+
+        .cube-face {
+            position: absolute; width: 100%; height: 100%;
+            background: var(--charcoal); border: 1px solid var(--luxury-gold);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; color: var(--luxury-gold); text-align: center;
+        }
+
+        /* MODAL FOR SERVICES */
+        .modal {
+            position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.95); display: none;
+            align-items: center; justify-content: center;
+        }
+
+        .modal-content {
+            border: 1px solid var(--luxury-gold); padding: 60px;
+            max-width: 600px; text-align: center; background: #0a0a0a;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<header>
+    <div class="logo">SUBRATA MONDAL</div>
+    <div style="font-family: 'Space Mono'; font-size: 0.7rem; color: var(--luxury-gold);">[ SYSTEM_v8.4_ACTIVE ]</div>
+</header>
+
+<section class="hero-section">
+    <div class="master-card" id="card">
+        <div style="letter-spacing: 10px; font-size: 0.7rem; margin-bottom: 20px;">CRAFTSMAN & ARCHITECT</div>
+        <span class="bold-title sand-blaster">SAND BLASTER</span>
+        <span class="bold-title ai-dev">AI WEB DEVELOPER</span>
+        <div style="height: 1px; background: var(--luxury-gold); margin: 30px 0; opacity: 0.3;"></div>
+        <button onclick="scrollToVault()" style="background: transparent; border: 1px solid var(--luxury-gold); color: var(--luxury-gold); padding: 15px 40px; cursor: pointer; font-family: 'Space Mono';">ACCESS THE VAULT</button>
+    </div>
+</section>
+
+<div class="vault-grid" id="vaultGrid"></div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2 id="m-title" style="color: var(--luxury-gold); font-family: 'Syncopate';"></h2>
+        <p id="m-desc" style="margin: 20px 0; line-height: 1.8; color: #ccc;"></p>
+        <button onclick="closeModal()" style="background: var(--luxury-gold); border: none; padding: 10px 30px; cursor: pointer;">CLOSE NODE</button>
+    </div>
+</div>
+
+<script>
+    // 1. PROJECT DATA (Integrating all 18 types)
+    const projects = [
+        { t: "Tactical HUD", d: "Unit ID tracking with military-grade UI." },
+        { t: "Luxe Cube", d: "Premium minimalist 3D service architecture." },
+        { t: "Onyx Prism", d: "Black-label executive decryption interface." },
+        { t: "Stark Overload", d: "Chaos-theory based service cascade." },
+        { t: "Galaxy Engine", d: "Infinite space-time data visualization." },
+        { t: "Neural Orchard", d: "Organic growth-pattern automation systems." }
+    ];
+
+    // 2. PARTICLE BACKGROUND (Project 18)
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const mouse = { x: null, y: null, radius: 100 };
+
+    window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.baseX = this.x; this.baseY = this.y;
+            this.size = 1;
+            this.density = (Math.random() * 20) + 1;
+        }
+        draw() {
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+        }
+        update() {
+            let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx*dx + dy*dy);
+            if (distance < mouse.radius) {
+                this.x -= (dx/distance) * 5; this.y -= (dy/distance) * 5;
+            } else {
+                this.x -= (this.x - this.baseX)/10; this.y -= (this.y - this.baseY)/10;
+            }
+        }
+    }
+
+    function init() {
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        particles = []; for(let i=0; i<200; i++) particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        particles.forEach(p => { p.draw(); p.update(); });
+        requestAnimationFrame(animate);
+    }
+
+    // 3. GENERATE VAULT NODES
+    const grid = document.getElementById('vaultGrid');
+    projects.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'node-cube';
+        div.onclick = () => {
+            document.getElementById('m-title').innerText = p.t;
+            document.getElementById('m-desc').innerText = p.d;
+            document.getElementById('modal').style.display = 'flex';
+        };
+        div.innerHTML = `<div class="cube-face" style="transform: translateZ(100px)">${p.t}</div>
+                         <div class="cube-face" style="transform: rotateY(90deg) translateZ(100px)">NODE</div>`;
+        grid.appendChild(div);
+    });
+
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    function scrollToVault() { window.scrollTo({ top: window.innerHeight, behavior: 'smooth' }); }
+
+    window.addEventListener('resize', init);
+    init(); animate();
+</script>
+
+</body>
+</html>
